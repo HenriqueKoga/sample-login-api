@@ -1,5 +1,6 @@
 from core import login_manager
-from flask import redirect, render_template, request, url_for
+from flask import jsonify, redirect, render_template, request, url_for
+from flask_jwt_extended import create_access_token
 from flask_login import current_user, login_required, login_user, logout_user
 from models.user import User
 from services.crypto.crypto import verify_password
@@ -41,8 +42,10 @@ def login():
             is_valid = verify_password(password, user.password)
             if is_valid:
                 login_user(user)
-                return redirect(url_for("login.index"))
-        return 'invalid username/password'
+                access_token = create_access_token(identity=username)
+                return jsonify(access_token=access_token)
+                # return redirect(url_for("login.index"))
+        return jsonify({"msg": "Bad username or password"}), 401
 
 
 @login_bp.route("/login/callback")

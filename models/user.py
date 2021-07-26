@@ -17,7 +17,7 @@ class User(db.Model, UserMixin, BaseModel):
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'name', 'email', 'password', 'photo')
+        fields = ('id', 'name', 'email', 'photo')
 
 
 user_schema = UserSchema()

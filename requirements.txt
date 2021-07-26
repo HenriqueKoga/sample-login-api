@@ -4,4 +4,7 @@ oauthlib==3.0.1
 pyOpenSSL==19.0.0
 Flask-Login==0.4.1
 Flask-SQLAlchemy==2.5.1
+flask-marshmallow==0.14.0
+marshmallow-sqlalchemy==0.26.1
 bcrypt==3.2.0
+Flask-JWT-Extended==4.2.3
