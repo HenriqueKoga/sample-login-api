@@ -27,25 +27,25 @@ def index():
         return render_template('login.html')
 
 
+@login_bp.route("/login-google", methods=['GET', 'POST'])
+def login_google():
+    google_auth = GoogleAuth()
+    request_uri = google_auth.get_request_uri()
+    return redirect(request_uri)
+
+
 @login_bp.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method == 'GET':
-        google_auth = GoogleAuth()
-        request_uri = google_auth.get_request_uri()
-        return redirect(request_uri)
-
-    if request.method == 'POST':
-        username = request.form.get("username")
-        password = request.form.get("password")
-        user = User.get(username=username)
-        if user:
-            is_valid = verify_password(password, user.password)
-            if is_valid:
-                login_user(user)
-                access_token = create_access_token(identity=username)
-                return jsonify(access_token=access_token)
-                # return redirect(url_for("login.index"))
-        return jsonify({"msg": "Bad username or password"}), 401
+    username = request.form.get("username")
+    password = request.form.get("password")
+    user = User.get(username=username)
+    if user:
+        is_valid = verify_password(password, user.password)
+        if is_valid:
+            login_user(user)
+            access_token = create_access_token(identity=username)
+            return jsonify(access_token=access_token)
+    return jsonify({"msg": "Bad username or password"}), 401
 
 
 @login_bp.route("/login/callback")

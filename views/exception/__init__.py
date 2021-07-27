@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-register_bp = Blueprint('register', __name__)
+error_bp = Blueprint('error', __name__)
 
 if True:
     from . import views

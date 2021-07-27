@@ -8,3 +8,4 @@ flask-marshmallow==0.14.0
 marshmallow-sqlalchemy==0.26.1
 bcrypt==3.2.0
 Flask-JWT-Extended==4.2.3
+flask-api==3.0.post1

@@ -10,9 +10,15 @@ class BaseModel:
         db.session.commit()
 
     @classmethod
-    def get(cls, unique_id=None, username=None):
+    def get(cls, unique_id=None, **kwargs):
         if unique_id:
-            return cls.query.filter_by(id=unique_id).first()
+            return cls.query.filter_by(id=unique_id).first_or_404()
 
-        if username:
-            return cls.query.filter_by(username=username).first()
+        if kwargs:
+            return cls.query.filter_by(**kwargs).first_or_404()
+
+    @classmethod
+    def delete(cls, unique_id):
+        obj = cls.get(unique_id)
+        db.session.delete(obj)
+        db.session.commit()

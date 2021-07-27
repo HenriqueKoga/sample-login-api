@@ -30,9 +30,9 @@ jwt = JWTManager(app)
 
 if True:
     from views.login import login_bp
-    from views.register import register_bp
     from views.user import user_bp
+    from views.exception import error_bp
 
     app.register_blueprint(login_bp)
     app.register_blueprint(user_bp)
-    app.register_blueprint(register_bp)
+    app.register_blueprint(error_bp)
