@@ -33,7 +33,7 @@ def users():
         user_id = str(uuid.uuid4())
         password_crypt = create_bcrypt_hash(password)
 
-        User.create(**{
+        user = User.create(**{
             'id': user_id,
             'name': name,
             'email': email,
@@ -41,7 +41,6 @@ def users():
             'password': password_crypt,
             'photo': None
         })
-        user = User.get(user_id)
         return jsonify(user_schema.dump(user)), status.HTTP_201_CREATED
 
 

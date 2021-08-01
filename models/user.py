@@ -1,5 +1,7 @@
 from core import db, ma
+from marshmallow import fields
 from flask_login import UserMixin
+from sqlalchemy import Column, String
 
 from models.base_model import BaseModel
 
@@ -7,17 +9,20 @@ db.metadata.clear()
 
 
 class User(db.Model, UserMixin, BaseModel):
-    id = db.Column(db.String, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(50))
-    photo = db.Column(db.String(255))
+    id = Column(String, primary_key=True)
+    name = Column(String(50), nullable=False)
+    email = Column(String(100), unique=True, nullable=False)
+    username = Column(String(50), unique=True, nullable=False)
+    password = Column(String(50))
+    photo = Column(String(255))
 
 
 class UserSchema(ma.Schema):
-    class Meta:
-        fields = ('id', 'name', 'email', 'photo')
+    id = fields.String()
+    name = fields.String()
+    email = fields.String()
+    username = fields.String()
+    photo = fields.String()
 
 
 user_schema = UserSchema()

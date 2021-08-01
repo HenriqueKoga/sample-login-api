@@ -5,6 +5,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from models.user import User
 from services.crypto.crypto import verify_password
 from services.google_auth.google_auth import GoogleAuth
+from flask_api import status
 
 from views.login import login_bp
 
@@ -45,7 +46,7 @@ def login():
             login_user(user)
             access_token = create_access_token(identity=username)
             return jsonify(access_token=access_token)
-    return jsonify({"msg": "Bad username or password"}), 401
+    return jsonify({"msg": "Bad username or password"}), status.HTTP_401_UNAUTHORIZED
 
 
 @login_bp.route("/login/callback")

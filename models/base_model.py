@@ -8,6 +8,8 @@ class BaseModel:
         obj = cls(**kwargs)
         db.session.add(obj)
         db.session.commit()
+        db.session.flush()
+        return obj
 
     @classmethod
     def get(cls, unique_id=None, **kwargs):
