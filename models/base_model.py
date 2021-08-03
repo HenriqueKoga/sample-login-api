@@ -24,3 +24,9 @@ class BaseModel:
         obj = cls.get(unique_id)
         db.session.delete(obj)
         db.session.commit()
+
+    @classmethod
+    def update(cls, unique_id, **kwargs):
+        obj = cls.get(unique_id)
+        obj.query.update(kwargs)
+        db.session.commit()

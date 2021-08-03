@@ -20,8 +20,6 @@ app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
 
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
 
-create_db = False
-
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -33,20 +31,21 @@ jwt = JWTManager(app)
 if True:
     from views.brand import brand_bp
     from views.exception import error_bp
+    from views.game_style import game_style_bp
+    from views.grip import grip_bp
     from views.login import login_bp
+    from views.racket import racket_bp
     from views.rubber import rubber_bp
     from views.user import user_bp
 
-    app.register_blueprint(login_bp)
-    app.register_blueprint(user_bp)
     app.register_blueprint(brand_bp)
-    app.register_blueprint(rubber_bp)
     app.register_blueprint(error_bp)
+    app.register_blueprint(game_style_bp)
+    app.register_blueprint(grip_bp)
+    app.register_blueprint(login_bp)
+    app.register_blueprint(racket_bp)
+    app.register_blueprint(rubber_bp)
+    app.register_blueprint(user_bp)
 
-
-if create_db:
-    from models.brand import Brand
-    from models.rubber import Rubber
-    from models.user import User
-
-    db.create_all()
+# Create tabel
+# Model.__table__.create(db.session.bind)

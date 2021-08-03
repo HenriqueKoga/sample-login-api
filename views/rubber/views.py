@@ -34,7 +34,7 @@ def rubbers():
         return jsonify(rubber_schema.dump(rubber)), status.HTTP_201_CREATED
 
 
-@rubber_bp.route('/rubbers/<rubber_id>', methods=['GET', 'DELETE'])
+@rubber_bp.route('/rubbers/<rubber_id>', methods=['GET', 'DELETE', 'PUT'])
 @login_required
 def rubber(rubber_id):
     if request.method == 'GET':
@@ -44,3 +44,8 @@ def rubber(rubber_id):
     if request.method == 'DELETE':
         Rubber.delete(rubber_id)
         return jsonify({'msg': 'Rubber deleted successfully'})
+
+    if request.method == 'PUT':
+        body = request.get_json()
+        Rubber.update(rubber_id, **body)
+        return jsonify({'msg': 'Rubber updated successfully'})

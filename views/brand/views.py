@@ -28,7 +28,7 @@ def brands():
         return jsonify(brand_schema.dump(brand)), status.HTTP_201_CREATED
 
 
-@brand_bp.route('/brands/<brand_id>', methods=['GET', 'DELETE'])
+@brand_bp.route('/brands/<brand_id>', methods=['GET', 'DELETE', 'PUT'])
 @login_required
 def brand(brand_id):
     if request.method == 'GET':
@@ -38,3 +38,8 @@ def brand(brand_id):
     if request.method == 'DELETE':
         Brand.delete(brand_id)
         return jsonify({'msg': 'Brand deleted successfully'})
+
+    if request.method == 'PUT':
+        body = request.get_json()
+        Brand.update(brand_id, **body)
+        return jsonify({'msg': 'Brand updated successfully'})
